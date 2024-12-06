@@ -1,0 +1,482 @@
+<!--
+    Bowlvana E-commerce Website
+    CIT2011 Web Programming - Group Assignment #1
+    
+    Group Members:
+    - Romiela Cooke (2209989) - Founder & CEO
+    - Delano Wright (2210185) - Head Chef & Designer
+    - Tareke Williams (23010976) - Sales Representative
+    - Joshua Williams (23010988) - Lead Developer
+    
+    File: login.html
+    Purpose: User authentication page handling login functionality with TRN verification,
+            password validation, account lockout protection, and password reset capabilities
+    
+    Created: November 2024
+    Last Modified: November 2024
+    
+    Class: Wednesday 3:30 PM - 5:30 PM
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bowlvana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape" style="width:300px;height:300px;top:-10%;left:20%;animation-delay:0s"></div>
+        <div class="shape" style="width:400px;height:400px;top:60%;left:60%;animation-delay:-5s"></div>
+        <div class="shape" style="width:200px;height:200px;top:30%;left:80%;animation-delay:-10s"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="brand-logo">
+            <div class="bowl-icon">
+                <div class="bowl-base">
+                    <div class="bowl-ripple"></div>
+                </div>
+            </div>
+            <h1 class="logo-text">Welcome Back</h1>
+            <p class="logo-subtitle">Sign in to continue</p>
+        </div>
+
+        <div id="messageBox"></div>
+        <div class="attempts-counter">
+            Attempts remaining: <span id="attemptsLeft">3</span>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" id="trn" placeholder="Enter TRN" required>
+                    <i class="fas fa-id-card input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Enter Password" required>
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                <div id="passwordStrength" class="password-strength"></div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-login">Sign In</button>
+                <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
+            </div>
+
+            <div class="reset-link">
+                <a href="#" id="resetLink">
+                    <i class="fas fa-key"></i> Forgot your password?
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    // Input Validation Module
+    const TRNValidator = {
+        isValidFormat: (trn) => {
+            const trnRegex = /^\d{3}-\d{3}-\d{3}$/;
+            return trnRegex.test(trn);
+        },
+
+        exists: (trn) => {
+            const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+            return registrationData.some(user => user.trn === trn);
+        },
+
+        formatInput: (value) => {
+            const numbers = value.replace(/\D/g, '').substring(0, 9);
+            if (numbers.length >= 6) {
+                return `${numbers.slice(0,3)}-${numbers.slice(3,6)}-${numbers.slice(6)}`;
+            } else if (numbers.length >= 3) {
+                return `${numbers.slice(0,3)}-${numbers.slice(3)}`;
+            }
+            return numbers;
+        },
+
+        validate: (trn) => {
+            if (!trn) {
+                return { isValid: false, error: 'TRN is required' };
+            }
+            if (!TRNValidator.isValidFormat(trn)) {
+                return { 
+                    isValid: false, 
+                    error: 'Invalid TRN format. Please use XXX-XXX-XXX format' 
+                };
+            }
+            if (!TRNValidator.exists(trn)) {
+                return {
+                    isValid: false,
+                    error: 'TRN not found in our records'
+                };
+            }
+            return { isValid: true, error: null };
+        }
+    };
+
+    const PasswordValidator = {
+        REQUIREMENTS: {
+            minLength: 8,
+            maxLength: 30,
+            minUppercase: 1,
+            minLowercase: 1,
+            minNumbers: 1,
+            minSpecial: 1,
+            allowedSpecial: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+        },
+
+        checkStrength: (password) => {
+            let strength = 0;
+            const checks = {
+                length: password.length >= PasswordValidator.REQUIREMENTS.minLength,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                numbers: /\d/.test(password),
+                special: new RegExp(`[${PasswordValidator.REQUIREMENTS.allowedSpecial}]`).test(password)
+            };
+
+            Object.values(checks).forEach(check => {
+                if (check) strength++;
+            });
+
+            return {
+                score: strength,
+                maxScore: Object.keys(checks).length,
+                checks
+            };
+        },
+
+        getStrengthDescription: (strength) => {
+            const percentage = (strength.score / strength.maxScore) * 100;
+            if (percentage === 100) return 'Very Strong';
+            if (percentage >= 80) return 'Strong';
+            if (percentage >= 60) return 'Moderate';
+            if (percentage >= 40) return 'Weak';
+            return 'Very Weak';
+        },
+
+        validate: (password) => {
+            const errors = [];
+            
+            if (!password) {
+                return { isValid: false, error: 'Password is required' };
+            }
+
+            if (password.length < PasswordValidator.REQUIREMENTS.minLength) {
+                errors.push(`Password must be at least ${PasswordValidator.REQUIREMENTS.minLength} characters long`);
+            }
+
+            if (password.length > PasswordValidator.REQUIREMENTS.maxLength) {
+                errors.push(`Password must not exceed ${PasswordValidator.REQUIREMENTS.maxLength} characters`);
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                errors.push('Password must contain at least one uppercase letter');
+            }
+
+            if (!/[a-z]/.test(password)) {
+                errors.push('Password must contain at least one lowercase letter');
+            }
+
+            if (!/\d/.test(password)) {
+                errors.push('Password must contain at least one number');
+            }
+
+            if (!new RegExp(`[${PasswordValidator.REQUIREMENTS.allowedSpecial}]`).test(password)) {
+                errors.push('Password must contain at least one special character');
+            }
+
+            return {
+                isValid: errors.length === 0,
+                errors,
+                strength: PasswordValidator.checkStrength(password)
+            };
+        }
+    };
+
+    const FormValidator = {
+        showError: (inputElement, message) => {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            const existingError = inputElement.parentElement.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            inputElement.classList.add('error');
+            inputElement.parentElement.appendChild(errorDiv);
+        },
+
+        removeError: (inputElement) => {
+            const errorDiv = inputElement.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+            inputElement.classList.remove('error');
+        }
+    };
+
+    // Constants and Variables
+    const MAX_ATTEMPTS = 3;
+    const LOCKOUT_DURATION = 30 * 1000; // 30 seconds
+    let remainingAttempts = MAX_ATTEMPTS; // Always start with 3 attempts
+    let lockoutTime = localStorage.getItem('lockoutTime');
+
+    // DOM Elements
+    const loginForm = document.getElementById('loginForm');
+    const messageBox = document.getElementById('messageBox');
+    const attemptsSpan = document.getElementById('attemptsLeft');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const trnInput = document.getElementById('trn');
+    const passwordInput = document.getElementById('password');
+    const passwordStrength = document.getElementById('passwordStrength');
+
+    // Helper Functions
+    function showMessage(text, isError = false) {
+        messageBox.textContent = text;
+        messageBox.style.display = 'block';
+        messageBox.className = isError ? 'error-message' : 'success-message';
+    }
+
+    function checkLockout() {
+        if (lockoutTime && Date.now() < parseInt(lockoutTime)) {
+            const remainingTime = Math.ceil((parseInt(lockoutTime) - Date.now()) / 1000);
+            showMessage(`Account is locked. Try again in ${remainingTime} seconds`, true);
+            return true;
+        }
+        return false;
+    }
+
+    function handleLockout() {
+        const lockoutEndTime = Date.now() + LOCKOUT_DURATION;
+        localStorage.setItem('lockoutTime', lockoutEndTime.toString());
+        remainingAttempts = MAX_ATTEMPTS;
+        attemptsSpan.textContent = remainingAttempts;
+        showMessage(`Account locked. Try again in ${LOCKOUT_DURATION/1000} seconds`, true);
+        window.location.href = 'locked.html';
+    }
+
+    // Event Listeners
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        if (checkLockout()) {
+            return;
+        }
+
+        const trn = trnInput.value.trim();
+        const password = passwordInput.value;
+
+        const trnValidation = TRNValidator.validate(trn);
+        if (!trnValidation.isValid) {
+            showMessage(trnValidation.error, true);
+            return;
+        }
+
+        try {
+            const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+            const userData = registrationData.find(user => user.trn === trn);
+
+            if (userData && userData.password === password) {
+                // On successful login, keep the remaining attempts as is
+                showMessage('Login successful! Redirecting...', false);
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUserTRN', trn);
+                localStorage.setItem('userData', JSON.stringify({
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    memberSince: userData.dateOfRegistration
+                }));
+                
+                showMessage('Login successful! Redirecting...', false);
+                setTimeout(() => {
+                    window.location.href = 'menu.html';
+                }, 1000);
+            } else {
+                remainingAttempts--;
+                attemptsSpan.textContent = remainingAttempts;
+                
+                if (remainingAttempts <= 0) {
+                    // Reset back to 3 attempts when it hits 0
+                    remainingAttempts = MAX_ATTEMPTS;
+                    attemptsSpan.textContent = remainingAttempts;
+                    showMessage('Attempts reset. You now have 3 new attempts.', true);
+                } else {
+                    showMessage(`Invalid TRN or password. ${remainingAttempts} attempts remaining`, true);
+                }
+            }
+        } catch (error) {
+            showMessage('An error occurred. Please try again.', true);
+            console.error('Login error:', error);
+        }
+    });
+
+    // Event Listeners
+    document.getElementById('resetLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (checkLockout()) return;
+
+        // Create modal only when needed
+        const resetModal = document.createElement('div');
+        resetModal.id = 'resetPasswordModal';
+        resetModal.className = 'modal';
+        resetModal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fas fa-key"></i>
+                    <h2>Reset Password</h2>
+                </div>
+                <form id="resetPasswordForm">
+                    <div class="input-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="resetTrn" placeholder="Enter TRN" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="resetPassword" placeholder="New Password" required>
+                    </div>
+                    <div id="resetPasswordStrength" class="password-strength"></div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-reset">Reset Password</button>
+                        <button type="button" class="btn btn-cancel" id="closeResetModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        `;
+
+        // Add modal to body
+        document.body.appendChild(resetModal);
+        resetModal.style.display = 'flex';
+
+        // Setup modal event listeners
+        document.getElementById('closeResetModal').addEventListener('click', () => {
+            resetModal.remove(); // Remove modal completely
+        });
+
+        // Format TRN input in modal
+        document.getElementById('resetTrn').addEventListener('input', (e) => {
+            e.target.value = TRNValidator.formatInput(e.target.value);
+        });
+
+        // Password strength indicator in modal
+        document.getElementById('resetPassword').addEventListener('input', (e) => {
+            const validation = PasswordValidator.validate(e.target.value);
+            const strength = PasswordValidator.getStrengthDescription(validation.strength);
+            const strengthElement = document.getElementById('resetPasswordStrength');
+            strengthElement.textContent = `Password Strength: ${strength}`;
+            strengthElement.className = `password-strength strength-${strength.toLowerCase().replace(' ', '-')}`;
+        });
+
+        document.getElementById('resetPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const trn = document.getElementById('resetTrn').value;
+            const newPassword = document.getElementById('resetPassword').value;
+
+            const trnValidation = TRNValidator.validate(trn);
+            if (!trnValidation.isValid) {
+                showMessage(trnValidation.error, true);
+                return;
+            }
+
+            const passwordValidation = PasswordValidator.validate(newPassword);
+            if (!passwordValidation.isValid) {
+                showMessage(passwordValidation.errors.join('\n'), true);
+                return;
+            }
+
+            const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+            const userIndex = registrationData.findIndex(user => user.trn === trn);
+            
+            registrationData[userIndex].password = newPassword;
+            localStorage.setItem('RegistrationData', JSON.stringify(registrationData));
+            
+            showMessage('Password updated successfully! Please login with your new password.', false);
+            resetModal.remove(); // Remove modal after successful password reset
+        });
+    });
+
+    trnInput.addEventListener('input', (e) => {
+        e.target.value = TRNValidator.formatInput(e.target.value);
+        FormValidator.removeError(e.target);
+    });
+
+    passwordInput.addEventListener('input', (e) => {
+        const validation = PasswordValidator.validate(e.target.value);
+        const strength = PasswordValidator.getStrengthDescription(validation.strength);
+        passwordStrength.textContent = `Password Strength: ${strength}`;
+        passwordStrength.className = `password-strength strength-${strength.toLowerCase().replace(' ', '-')}`;
+        FormValidator.removeError(e.target);
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        loginForm.reset();
+        messageBox.style.display = 'none';
+        passwordStrength.textContent = '';
+        FormValidator.removeError(trnInput);
+        FormValidator.removeError(passwordInput);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Always start with 3 attempts on page load
+        remainingAttempts = MAX_ATTEMPTS;
+        attemptsSpan.textContent = remainingAttempts;
+        
+        if (checkLockout()) {
+            loginForm.style.opacity = '0.5';
+            loginForm.querySelectorAll('input, button').forEach(el => el.disabled = true);
+        } else if (lockoutTime && Date.now() >= parseInt(lockoutTime)) {
+            localStorage.removeItem('lockoutTime');
+        }
+
+        FormValidator.attachValidation(loginForm);
+    });
+
+    // Add validation styles
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .strength-very-weak { color: #dc3545; }
+        .strength-weak { color: #ffc107; }
+        .strength-moderate { color: #fd7e14; }
+        .strength-strong { color: #28a745; }
+        .strength-very-strong { color: #20c997; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `;
+    document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>

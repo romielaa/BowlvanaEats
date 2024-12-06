@@ -1,0 +1,319 @@
+<!--
+    Bowlvana E-commerce Website
+    CIT2011 Web Programming - Group Assignment #1
+    
+    Group Members:
+    - Romiela Cooke (2209989) - Founder & CEO
+    - Delano Wright (2210185) - Head Chef & Designer
+    - Tareke Williams (23010976) - Sales Representative
+    - Joshua Williams (23010988) - Lead Developer
+    
+    File: registration.html
+    Purpose: User registration page with form validation, data storage, and 
+            automatic formatting for phone numbers and TRN. Includes age verification,
+            unique TRN validation, and email format checking
+    
+    Created: November 2024
+    Last Modified: November 2024
+    
+    Class: Wednesday 3:30 PM - 5:30 PM
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Bowlvana</title>
+    
+    <!-- External Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Favicon Settings -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo1.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo1.png">
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body> 
+    <!-- Header Navigation -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+            <h2>Bowlvana</h2>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="registration.html">Registration</a>
+            <a href="account.html" class="account-link">
+                <i class="fas fa-user"></i>
+            </a>
+    </header>
+</head>
+<body>
+    <div class="container">
+        <h1>Bowlvana Registration</h1>
+        <div id="registrationSuccess" class="success hidden">
+            Registration successful! Redirecting to home page...
+        </div>
+        <form id="registrationForm" novalidate>
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <select id="title" name="title" required>
+                    <option value="">Select Title</option>
+                    <option value="Mr">Mr.</option>
+                    <option value="Mrs">Mrs.</option>
+                    <option value="Ms">Ms.</option>
+                    <option value="Dr">Dr.</option>
+                </select>
+                <div class="error" data-error="title"></div>
+            </div>
+
+            <!-- First Name -->
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <div class="error" data-error="firstName"></div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <div class="error" data-error="lastName"></div>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" name="dob" required>
+                <div class="error" data-error="dob"></div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+                <div class="error" data-error="gender"></div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" 
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+                    placeholder="123-456-7890" required>
+                <div class="error" data-error="phone"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" data-error="email"></div>
+            </div>
+
+            <!-- TRN -->
+            <div class="form-group">
+                <label for="trn">Tax Registration Number (TRN) *</label>
+                <input type="text" id="trn" name="trn" 
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" 
+                    placeholder="000-000-000" required>
+                <div class="error" data-error="trn"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" 
+                minlength="8" required>
+                <div class="error" data-error="password"></div>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit">Register</button>
+                <button type="reset">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const successMessage = document.getElementById('registrationSuccess');
+            
+            // Utility function to show error
+            function showError(field, message) {
+                const errorDiv = form.querySelector(`[data-error="${field}"]`);
+                if (errorDiv) {
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                }
+            }
+
+            // Utility function to clear errors
+            function clearErrors() {
+                form.querySelectorAll('.error').forEach(error => {
+                    error.textContent = '';
+                    error.style.display = 'none';
+                });
+            }
+
+            // Validate age (must be over 18)
+            function isOver18(birthDate) {
+                const today = new Date();
+                const birth = new Date(birthDate);
+                let age = today.getFullYear() - birth.getFullYear();
+                const monthDiff = today.getMonth() - birth.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                    age--;
+                }
+                
+                return age >= 18;
+            }
+
+            // Validate TRN format
+            function validateTRN(trn) {
+                const trnRegex = /^\d{3}-\d{3}-\d{3}$/;
+                return trnRegex.test(trn);
+            }
+
+            // Check if TRN is unique
+            function isTRNUnique(trn) {
+                const registrationData = JSON.parse(localStorage.getItem('RegistrationData') || '[]');
+                return !registrationData.some(user => user.trn === trn);
+            }
+
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+                
+                let hasErrors = false;
+                const formData = new FormData(form);
+                const userData = Object.fromEntries(formData.entries());
+
+                // Validate required fields
+                for (const [field, value] of formData.entries()) {
+                    if (!value) {
+                        showError(field, `${field.charAt(0).toUpperCase() + field.slice(1)} is required`);
+                        hasErrors = true;
+                    }
+                }
+
+                // Validate age
+                if (!isOver18(userData.dob)) {
+                    showError('dob', 'You must be over 18 years old to register.');
+                    hasErrors = true;
+                }
+
+                // Validate password length
+                if (userData.password.length < 8) {
+                    showError('password', 'Password must be at least 8 characters long.');
+                    hasErrors = true;
+                }
+
+                // Validate TRN format
+                if (!validateTRN(userData.trn)) {
+                    showError('trn', 'TRN must be in format 000-000-000');
+                    hasErrors = true;
+                }
+
+                // Check TRN uniqueness
+                if (!isTRNUnique(userData.trn)) {
+                    showError('trn', 'This TRN is already registered');
+                    hasErrors = true;
+                }
+
+                // New function to validate email format
+                function validateEmail(email) {
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return emailRegex.test(email);
+                }
+
+                // Added to form submission handler
+                if (!validateEmail(userData.email)) {
+                showError('email', 'Please enter a valid email address');
+                hasErrors = true;
+            }
+
+            // New function to validate phone number format
+            function validatePhone(phone) {
+            const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+            return phoneRegex.test(phone);
+            }
+
+            // Added to form submission handler
+            if (!validatePhone(userData.phone)) {
+            showError('phone', 'Please enter a valid phone number in format 123-456-7890');
+            hasErrors = true;
+            }
+                if (!hasErrors) {
+                    // Prepare user data for storage
+                    const registrationRecord = {
+                        ...userData,
+                        dateOfRegistration: new Date().toISOString(),
+                        cart: {},
+                        invoices: []
+                    };
+
+                    // Get existing data and append new registration
+                    const existingData = JSON.parse(localStorage.getItem('RegistrationData') || '[]');
+                    existingData.push(registrationRecord);
+
+                    // Store updated data
+                    localStorage.setItem('RegistrationData', JSON.stringify(existingData));
+
+                    // Show success message
+                    successMessage.classList.remove('hidden');
+
+                    // Redirect to home page after delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            });
+
+            // Reset form handler
+            form.addEventListener('reset', function() {
+                clearErrors();
+                successMessage.classList.add('hidden');
+            });
+
+            // Phone number formatter
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '').substring(0,10);
+                if (value.length >= 6) {
+                    value = `${value.substring(0,3)}-${value.substring(3,6)}-${value.substring(6)}`;
+                } else if (value.length >= 3) {
+                    value = `${value.substring(0,3)}-${value.substring(3)}`;
+                }
+                e.target.value = value;
+            });
+
+            // TRN formatter
+            const trnInput = document.getElementById('trn');
+            trnInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '').substring(0,9);
+                if (value.length >= 6) {
+                    value = `${value.substring(0,3)}-${value.substring(3,6)}-${value.substring(6)}`;
+                } else if (value.length >= 3) {
+                    value = `${value.substring(0,3)}-${value.substring(3)}`;
+                }
+                e.target.value = value;
+            });
+        });
+    </script>
+</body>
+</html>

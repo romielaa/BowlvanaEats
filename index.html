@@ -1,0 +1,311 @@
+<!--
+    Bowlvana E-commerce Website
+    ==========================
+    Project: CIT2011 Web Programming - Group Assignment #1
+    
+    Development Team:
+    ----------------
+    Romiela Cooke (2209989) - Strategic Direction & Business Development
+    Delano Wright (2210185) - Visual Design & Product Development
+    Tareke Williams (23010976) - Customer Relations & Market Analysis
+    Joshua Williams - Technical Architecture & Implementation
+    
+    File Information:
+    ----------------
+    Name: index.html
+    Purpose: Main landing page and primary entry point for the Bowlvana website
+    
+    Key Components:
+    --------------
+    1. User Interface Elements
+       - Dynamic hero section with video background
+       - Interactive product showcase
+       - Responsive navigation system
+       - Shopping cart functionality
+    
+    2. Content Sections
+       - Featured açaí bowl display
+       - Health benefits presentation
+       - Customer testimonials carousel
+       - Newsletter subscription system
+    
+    3. Technical Features
+       - Responsive design implementation
+       - Dynamic content loading
+       - Interactive user feedback
+       - Social media integration
+    
+    Last Modified: November 2024
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Essential Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bowlvana - Acai Your Way!</title>
+    
+    <!-- Resource Dependencies -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="cart.js"></script>
+    
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo1.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo1.png">
+</head>
+
+<body>
+    <!-- Main Navigation -->
+    <header class="header">
+        <!-- Brand Identity -->
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+            <h2>Bowlvana</h2>
+        </a>
+        <!-- Navigation Menu -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="registration.html">Registration</a>
+            <a href="account.html" class="account-link">
+                <i class="fas fa-user"></i>
+            </a>
+            <!-- Cart Status -->
+            <a href="cart.html" class="cart-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero-banner">
+        <!-- Background Video -->
+        <video class="background-video" autoplay loop muted playsinline>
+            <source src="assets/videos/background.mp4" type="video/mp4">
+        </video>
+        <!-- Hero Content -->
+        <div class="banner-content">
+            <h1>Welcome to Bowlvana</h1>
+            <p>Where Health Meets Happiness in Every Bowl</p>
+            <div class="highlight">New! Try our signature Merry Berry Bowl</div>
+            <div class="banner-buttons">
+                <a href="menu.html" class="primary-btn">Explore Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Display -->
+    <section class="featured-bowls" id="featured">
+        <h2 class="section-title">Featured Bowls</h2>
+        <div class="bowls-grid">
+            <!-- Product Card: Blue Lagoon -->
+            <div class="bowl-card">
+                <img src="assets/images/bluelagoon.png" alt="Blue Lagoon" class="bowl-image">
+                <div class="bowl-content">
+                    <h3>Blue Lagoon</h3>
+                    <p>Açaí blend with strawberry,coconut, chia seeds.</p>
+                    <span class="price">J$950.00</span>
+                    <button class="order-btn" onclick="addToCart('Blue Lagoon', 950.00)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product Card: Coral Kiss -->
+            <div class="bowl-card">
+                <img src="assets/images/coralkiss.png" alt="Coral Kiss" class="bowl-image">
+                <div class="bowl-content">
+                    <h3>Coral Kiss</h3>
+                    <p>Refreshing blend with mango, banana pineapple and blueberry.</p>
+                    <span class="price">J$650.00</span>
+                    <button class="order-btn" onclick="addToCart('Coral Kiss', 650.00)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product Card: Markono -->
+            <div class="bowl-card">
+                <img src="assets/images/markono.png" alt="Markono" class="bowl-image">
+                <div class="bowl-content">
+                    <h3>Markono</h3>
+                    <p>Açaí topped with edible flowers, pomegranate and blueberry.</p>
+                    <span class="price">J$750.00</span>
+                    <button class="order-btn" onclick="addToCart('Markono', 950.00)">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product Card: Emerald Dew -->
+            <div class="bowl-card">
+                <img src="assets/images/emeralddew.png" alt="Emerald Dew" class="bowl-image">
+                <div class="bowl-content">
+                    <h3>Emerald Dew</h3>
+                    <p>Spirulina blend with kiwi, matcha, and flaxseeds.</p>
+                    <span class="price">J$850.00</span>
+                    <button class="order-btn" onclick="addToCart('Emerald Dew', 950.00)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Benefits Overview -->
+    <section class="why-acai">
+        <h2 class="section-title">Why Choose Açaí?</h2>
+        <div class="benefits-grid">
+            <!-- Benefit: Health -->
+            <div class="benefit-card hover-pop">
+                <i class="fas fa-heart"></i>
+                <h3>Healthy Choice</h3>
+                <p>Packed with antioxidants, vitamins, and minerals for optimal wellness</p>
+            </div>
+            <!-- Benefit: Sustainability -->
+            <div class="benefit-card hover-pop">
+                <i class="fas fa-leaf"></i>
+                <h3>Sustainable Ingredients</h3>
+                <p>Sourced from sustainable farms for a better planet</p>
+            </div>
+            <!-- Benefit: Customization -->
+            <div class="benefit-card hover-pop">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Deliciously Customizable</h3>
+                <p>Create your perfect bowl with endless toppings</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials -->
+    <section class="customer-reviews">
+        <h2 class="section-title">Customer Love</h2>
+        <!-- Reviews Carousel -->
+        <div class="reviews-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <!-- Primary Reviews -->
+                    <div class="review-item">
+                        <img src="assets/images/customerlove1.jpeg" alt="Customer Review 1">
+                    </div>
+                    <div class="review-item">
+                        <img src="assets/images/customerlove2.jpeg" alt="Customer Review 2">
+                    </div>
+                    <div class="review-item">
+                        <img src="assets/images/customerlove4.jpeg" alt="Customer Review 4">
+                    </div>
+                    <!-- Cloned Reviews for Infinite Scroll -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Company Overview -->
+            <div class="footer-section company-info">
+                <h3>Bowlvana</h3>
+                <p>Crafting perfect açaí bowls since 2024</p>
+                <!-- Social Media Links -->
+                <div class="social-links">
+                    <a href="https://instagram.com/bowlvana" target="_blank" aria-label="Follow us on Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://pinterest.com/bowlvana" target="_blank" aria-label="Follow us on Pinterest">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                    <a href="https://facebook.com/bowlvana" target="_blank" aria-label="Follow us on Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-phone"></i> (876) 344-9461</li>
+                    <li><i class="fas fa-envelope"></i> hello@bowlvana.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Southern Cross, Fairview Montego Bay</li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe for special offers and updates!</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Copyright Information -->
+        <div class="copyright">
+            <p>Copyright © 2024 Bowlvana. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+    /**
+     * Initialize page functionality
+     * ---------------------------
+     * Sets up carousel and newsletter features
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize carousel
+        const track = document.querySelector('.carousel-track');
+        const items = document.querySelectorAll('.review-item');
+        
+        // Clone items for infinite scroll
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            track.appendChild(clone);
+        });
+    });
+
+    /**
+     * Newsletter Subscription Handler
+     * -----------------------------
+     * Manages form submission and user feedback
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.getElementById('newsletterForm');
+        const submitButton = newsletterForm.querySelector('button');
+        const emailInput = newsletterForm.querySelector('input');
+
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (emailInput.value) {
+                // Disable form during submission
+                newsletterForm.classList.add('subscribed');
+                
+                // Update UI feedback
+                submitButton.textContent = 'Delivered!';
+                emailInput.value = '';
+                
+                // Reset form state
+                setTimeout(() => {
+                    newsletterForm.classList.remove('subscribed');
+                    submitButton.textContent = 'Subscribe';
+                }, 3000);
+            }
+        });
+    });
+
+    /**
+     * Modal Window Handler
+     * ------------------
+     * Controls cart modal behavior
+     */
+    window.onclick = function(event) {
+        const modal = document.getElementById('cartModal');
+        if (event.target === modal) {
+            closeCartModal();
+        }
+    }
+    </script>
+</body>
+</html>

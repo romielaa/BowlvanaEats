@@ -1,0 +1,667 @@
+<!--
+    Bowlvana E-commerce Website
+    ===========================
+    Project: CIT2011 Web Programming - Group Assignment #1
+    
+    Team Information:
+    ----------------
+    - Romiela Cooke (2209989) - Project Lead & Business Strategy
+    - Delano Wright (2210185) - UI/UX Design & Content Creation
+    - Tareke Williams (23010976) - Marketing & Customer Relations
+    - Joshua Williams (23010988) - Technical Implementation
+    
+    File Details:
+    ------------
+    Name: about.html
+    Purpose: Corporate information page that:
+            - Presents company overview and team structure
+            - Showcases mission statement and core values
+            - Displays key performance metrics
+            - Features customer testimonials and social proof
+            - Provides contact information and business hours
+    
+    Development Information:
+    ----------------------
+    Created: November 2024
+    Last Modified: November 2024
+    Class Schedule: Wednesday 3:30 PM - 5:30 PM
+    
+    Note: This page implements responsive design patterns and 
+    uses modern web technologies for optimal user experience
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        Head Section
+        -----------
+        Contains meta information, resource links, and page setup
+        Includes responsive viewport settings and font imports
+    -->
+    <head>
+        <!-- Character encoding and responsive viewport configuration -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us - Bowlvana</title>
+        
+        <!-- 
+            External Resources
+            -----------------
+            - Google Fonts: Typography enhancement with premium fonts
+            - Font Awesome: Industry-standard icon library
+        -->
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Playfair+Display:wght@400;600;700&family=Ramaraja&family=Garamond&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        
+        <!-- 
+            Styling Resources
+            ----------------
+            - styles.css: Global styling rules
+            - aboutus.css: Page-specific styles
+        -->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="aboutus.css">
+        
+        <!-- 
+            Favicon Configuration
+            -------------------
+            Multiple sizes for cross-platform compatibility
+        -->
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo1.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo1.png">
+    </head>
+
+    <body>
+        <!-- 
+            Navigation Header
+            ----------------
+            Main navigation bar with logo and menu links
+        -->
+        <header class="header">
+            <nav class="nav">
+                <!-- Brand identity with logo and name -->
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+                    <h2>Bowlvana</h2>
+                </a>
+                
+                <!-- Main navigation menu -->
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="menu.html">Menu</a>
+                    <a href="aboutus.html">About Us</a>
+                    <a href="registration.html">Registration</a>
+                    <a href="account.html" class="account-link">
+                        <i class="fas fa-user"></i>
+                    </a>
+        </header>
+
+        <!-- 
+            Hero Banner
+            -----------
+            Prominent welcome section with main tagline
+        -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Welcome to Bowlvana</h1>
+                <p>Açaí the Day, Your Way!</p>
+            </div>
+        </div>
+
+        <!-- 
+            Main Content Container
+            --------------------
+            Houses all major page sections
+        -->
+        <main class="about-section">
+            <!-- 
+                Developer Information
+                --------------------
+                Team details and project metadata
+            -->
+            <section class="developer-info">
+                <div class="info-card">
+                    <h2>Developer's Information</h2>
+                    <ul>
+                        <li><strong>Developer 1:</strong> Romiela Cooke - 2209989</li>
+                        <li><strong>Developer 2:</strong> Delano Wright - 2210185</li>
+                        <li><strong>Developer 3:</strong> Tareke Williams - 23010976</li>
+                        <li><strong>Developer 4:</strong> Joshua Williams - 23010988</li>
+                        <li><strong>Module:</strong> CIT2011 Web Programming</li>
+                        <li><strong>Assignment:</strong> Bowlvana Website - Group Assignment #1</li>
+                        <li><strong>Class:</strong> Wednesday 3:30 PM - 5:30 PM</li>
+                        <li><strong>Contact:</strong> <a href="mailto:@utech.edu.jm" class="email-link">@utech.edu.jm</a></li>
+                    </ul>
+                </div>
+            </section>
+
+<!-- 
+    Mission and Values Section 
+    ------------------------
+    Displays company mission statement and core values
+-->
+<section class="mission-values">
+    <!-- Mission Statement Card -->
+    <div class="mission-card">
+        <h2>Our Mission</h2>
+        <p>Bringing health and joy to our community, one beautifully crafted açaí bowl at a time.</p>
+    </div>
+    
+    <!-- Core Values Display Grid -->
+    <div class="values-grid">
+        <!-- Value 1: Health Focus -->
+        <div class="value-card" data-aos="fade-up">
+            <i class="fas fa-heart"></i>
+            <h3>Passion for Health</h3>
+            <p>Crafting wholesome, aesthetic and nourishing experiences with every bowl.</p>
+        </div>
+        <!-- Value 2: Environmental Responsibility -->
+        <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-leaf"></i>
+            <h3>Sustainability</h3>
+            <p>Committed to eco-friendly practices and sustainable sourcing.</p>
+        </div>
+        <!-- Value 3: Customer Focus -->
+        <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-smile"></i>
+            <h3>Customer Delight</h3>
+            <p>Your satisfaction is our top priority.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 
+    Impact Statistics Section
+    -----------------------
+    Animated counters showing key business metrics
+-->
+<section class="impact-stats">
+    <h2>Our Impact</h2>
+    <div class="stats-grid">
+        <!-- Monthly Service Metric -->
+        <div class="stat-card">
+            <i class="fas fa-bowl-food"></i>
+            <div class="counter" data-target="500">0</div>
+            <p>Bowls Served Monthly</p>
+        </div>
+        <!-- Environmental Impact Metric -->
+        <div class="stat-card">
+            <i class="fas fa-tree"></i>
+            <div class="counter" data-target="1000">0</div>
+            <p>Trees Planted</p>
+        </div>
+        <!-- Customer Satisfaction Metric -->
+        <div class="stat-card">
+            <i class="fas fa-heart"></i>
+            <div class="counter" data-target="95">0</div>
+            <p>% Customer Satisfaction</p>
+        </div>
+    </div>
+</section>
+
+<!-- 
+    Team Member Profiles
+    ------------------
+    Showcase of key team members with roles and descriptions
+-->
+<section class="team-section">
+    <div class="container">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+            <!-- Leadership: CEO Profile -->
+            <div class="team-card">
+                <div class="card-image">
+                    <img src="assets/images/ceo.jpg" alt="Romiela Cooke - CEO">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3>Romiela Cooke</h3>
+                    <span class="role">Founder & CEO</span>
+                    <p>Romiela's passion for healthy living and aesthetics inspired Bowlvana's creation.</p>
+                </div>
+            </div>
+
+            <!-- Technical: Developer Profile -->
+            <div class="team-card">
+                <div class="card-image">
+                    <img src="assets/images/developer.jpg" alt="Joshua Williams - Developer">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3>Joshua Williams</h3>
+                    <span class="role">Lead Developer</span>
+                    <p>Joshua ensures our digital presence matches our online excellence.</p>
+                </div>
+            </div>
+
+            <!-- Culinary: Chef Profile -->
+            <div class="team-card">
+                <div class="card-image">
+                    <img src="assets/images/designer.jpg" alt="Delano Wright - Chef">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3>Delano Wright</h3>
+                    <span class="role">Head Chef & Designer</span>
+                    <p>Delano crafts our signature bowls with creativity and precision.</p>
+                </div>
+            </div>
+
+            <!-- Sales: Representative Profile -->
+            <div class="team-card">
+                <div class="card-image">
+                    <img src="assets/images/salesrep.jpg" alt="Tareke Williams - Sales">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h3>Tareke Williams</h3>
+                    <span class="role">Sales Representative</span>
+                    <p>Tareke brings Bowlvana's magic to new locations and partnerships.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+    Customer Testimonials
+    -------------------
+    Interactive slider showcasing customer reviews and ratings
+-->
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonials-container">
+            <div class="testimonials-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"Run out! Run out! If you are in town definitely get the Dawn Delight."</p>
+                    <div class="testimonial-author">- Donya M.</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"The attention to detail in every bowl is amazing. The Blue Majik is absolutely perfect!"</p>
+                    <div class="testimonial-author">- Kerry K.</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"Instagram loves to see me coming, with Bowlvana's BOMBOM."</p>
+                    <div class="testimonial-author">- Quite Perry</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"Starting my weightloss journey and healthy is the new me. The staff is incredibly friendly too!"</p>
+                    <div class="testimonial-author">- Celine D.</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="slider-controls">
+                <!-- Previous Button -->
+                <button class="prev-btn" aria-label="View previous testimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="slider-dots"></div>
+                
+                <button class="next-btn" aria-label="View next testimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+    Footer Section
+    -------------
+    Contains company information, navigation, and contact details
+-->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-grid">
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>About Bowlvana</h3>
+                <p>Crafting healthy and delicious açaí bowls with love since 2024. Your destination for nutritious and Instagram-worthy treats.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/bowlvana" target="_blank" aria-label="Follow us on Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://pinterest.com/bowlvana" target="_blank" aria-label="Follow us on Pinterest">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                    <a href="https://facebook.com/bowlvana" target="_blank" aria-label="Follow us on Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Southern Cross, Fairview Montego Bay</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>(876) 344-9461</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>hello@bowlvana.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Hours Section -->
+            <div class="footer-section">
+                <h3>Hours</h3>
+                <ul class="hours-list">
+                    <li><span>Monday - Friday: 6am - 7pm</li>
+                    <li><span>Saturday: 6am - 8pm</li>
+                    <li><span>Sunday: 6am - 1pm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2024 Bowlvana. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- 
+    JavaScript Section
+    ----------------
+    Contains interactive functionality for:
+    - Counter animations
+    - Testimonial slider
+    - Team card animations
+-->
+<script>
+// Counter Animation Implementation
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter");
+    const options = {
+        threshold: 1,
+        rootMargin: "0px"
+    };
+
+    // Intersection Observer for Counter Animation
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = +counter.getAttribute("data-target");
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                // Counter Update Function
+                const updateCounter = () => {
+                    current += increment;
+                    counter.textContent = Math.round(current);
+
+                    if (current < target) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+                observer.unobserve(counter);
+            }
+        });
+    }, options);
+
+    // Observe all counter elements
+    counters.forEach(counter => observer.observe(counter));
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize testimonials slider
+    const initTestimonials = () => {
+        const slider = document.querySelector('.testimonials-slider');
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const dotsContainer = document.querySelector('.slider-dots');
+
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        // Create dots
+        testimonials.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                if (!isAnimating) goToSlide(index);
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        // Initialize first testimonial
+        testimonials[0].classList.add('active');
+
+        // Function to update dots
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Function to handle slide transition
+        function goToSlide(index) {
+            if (isAnimating || index === currentIndex) return;
+            isAnimating = true;
+
+            // Calculate direction for animation
+            const direction = index > currentIndex ? 1 : -1;
+            
+            // Current slide animation
+            testimonials[currentIndex].style.transform = `translateX(${-100 * direction}%)`;
+            testimonials[currentIndex].style.opacity = '0';
+            testimonials[currentIndex].classList.remove('active');
+
+            // New slide animation
+            testimonials[index].style.transform = `translateX(${100 * direction}%)`;
+            testimonials[index].style.opacity = '0';
+            testimonials[index].classList.add('active');
+
+            // Trigger reflow
+            testimonials[index].offsetHeight;
+
+            // Animate new slide in
+            testimonials[index].style.transform = 'translateX(0)';
+            testimonials[index].style.opacity = '1';
+
+            // Update current index
+            currentIndex = index;
+            updateDots();
+
+            // Reset animation flag and cleanup
+            setTimeout(() => {
+                isAnimating = false;
+                testimonials.forEach((testimonial, i) => {
+                    if (i !== currentIndex) {
+                        testimonial.style.transform = '';
+                        testimonial.style.opacity = '';
+                    }
+                });
+            }, 500);
+        }
+
+        // Next slide function
+        function nextSlide() {
+            const nextIndex = (currentIndex + 1) % testimonials.length;
+            goToSlide(nextIndex);
+        }
+
+        // Previous slide function
+        function prevSlide() {
+            const prevIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            goToSlide(prevIndex);
+        }
+
+        // Event listeners for controls
+        prevBtn.addEventListener('click', () => {
+            if (!isAnimating) prevSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (!isAnimating) nextSlide();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!isAnimating) {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+            }
+        });
+
+        // Auto-play functionality
+        let autoplayInterval;
+        const autoplayDelay = 5000; // 5 seconds
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(() => {
+                if (!isAnimating) nextSlide();
+            }, autoplayDelay);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        // Start autoplay
+        startAutoplay();
+
+        // Pause on hover
+        slider.addEventListener('mouseenter', stopAutoplay);
+        slider.addEventListener('mouseleave', startAutoplay);
+
+        // Touch events for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoplay();
+        });
+
+        slider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            startAutoplay();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const difference = touchStartX - touchEndX;
+
+            if (Math.abs(difference) > swipeThreshold && !isAnimating) {
+                if (difference > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+    };
+
+    // Initialize team cards animation
+    const initTeamCards = () => {
+        const teamCards = document.querySelectorAll('.team-card');
+        
+        const observerOptions = {
+            root: null,
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('card-visible');
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        teamCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.2}s`;
+            cardObserver.observe(card);
+        });
+
+        // Add CSS class for animation
+        const style = document.createElement('style');
+        style.textContent = `
+            .card-visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    };
+
+    // Initialize both sections
+    initTestimonials();
+    initTeamCards();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!--
+    Bowlvana E-commerce Website
+    CIT2011 Web Programming - Group Assignment #1
+    
+    Group Members:
+    - Romiela Cooke (2209989) - Founder & CEO
+    - Delano Wright (2210185) - Head Chef & Designer
+    - Tareke Williams (23010976) - Sales Representative
+    - Joshua Williams (23010988) - Lead Developer
+    
+    File: account.html
+    Purpose: Account management page allowing users to view their profile information,
+    access registration data, view order history, see user analytics,
+    manage invoices, and logout. This page provides a centralized dashboard
+    for all user-related functionality.
+    
+    Features:
+    - Profile information display
+    - Registration data access
+    - Order history tracking
+    - User analytics dashboard
+    - Invoice management
+    - Secure logout functionality
+    
+    Last Modified: December 1, 2024
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>My Account - Bowlvana</title>
+    
+    <!-- External Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="account.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Logo Section -->
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+                <h2>Bowlvana</h2>
+            </a>
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="registration.html">Registration</a>
+                <a href="account.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+            </nav>
+        </nav>
+    </header>
+
+    <!-- Main Account Interface -->
+    <main class="account-container">
+        <!-- Header Section -->
+        <div class="account-header">
+            <h1>My Account</h1>
+            <p>Welcome back to Bowlvana!</p>
+        </div>
+        
+        <!-- Account Information Card -->
+        <div class="account-card">
+            <!-- Profile Information -->
+            <div class="profile-section">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h2>Profile Information</h2>
+                    <!-- User Details -->
+                    <div class="info-group">
+                        <label>Username</label>
+                        <p id="userUsername">admin</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Email</label>
+                        <p id="userEmail">admin@bowlvana.com</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Member Since</label>
+                        <p id="memberSince">November 29, 2024</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="account-actions">
+                <a href="registrationData.html" class="action-button">
+                    <i class="fas fa-edit"></i>
+                    <span>Registration Data</span>
+                </a>
+                
+                <a href="orderHistory.html" class="action-button">
+                    <i class="fas fa-history"></i>
+                    <span>Order History</span>
+                </a>
+                
+                <button class="action-button" onclick="ShowUserFrequency()">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>User Analytics</span>
+                </button>
+            </div>
+                    </div>
+                            </div>
+                                    </div>
+                <!-- Logout Button -->
+                <button class="action-button logout-button" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Section -->
+    <script>
+    // Account Initialization Function
+    function initializeAccount() {
+        try {
+            // Get user data from storage
+            const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+            const currentUserTRN = localStorage.getItem('currentUserTRN');
+            
+            // Validate user session
+            if (!currentUserTRN) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Find current user data
+            const currentUser = registrationData.find(user => user.trn === currentUserTRN);
+            
+            if (currentUser) {
+                // Update profile display
+                const fullName = `${currentUser.title} ${currentUser.firstName} ${currentUser.lastName}`;
+                document.getElementById('userUsername').textContent = fullName;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                
+                // Format registration date
+                const registrationDate = new Date(currentUser.dateOfRegistration);
+                const formattedDate = registrationDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('memberSince').textContent = formattedDate;
+                
+                // Update welcome message
+                const welcomeMessage = document.querySelector('.account-header p');
+                if (welcomeMessage) {
+                    welcomeMessage.textContent = `Welcome back, ${currentUser.firstName}!`;
+                }
+            } else {
+                // Handle invalid session
+                console.error('User data not found for TRN:', currentUserTRN);
+                window.location.href = 'login.html';
+            }
+        } catch (error) {
+            // Error handling
+            console.error('Error initializing account:', error);
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = 'There was an error loading your profile. Please try logging in again.';
+            document.querySelector('.account-container').prepend(errorMessage);
+        }
+    }
+
+    // Logout Handler
+    function handleLogout() {
+        // Clear session data
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUserTRN');
+        
+        // Redirect to login
+        window.location.href = 'login.html';
+    }
+
+    // User Analytics Dashboard
+    function ShowUserFrequency() {
+        // Get analytics data
+        const registrationData = JSON.parse(localStorage.getItem('RegistrationData')) || [];
+        const currentUserTRN = localStorage.getItem('currentUserTRN');
+        
+        // Validate data availability
+        if (registrationData.length === 0) {
+            alert('No user data available for analytics');
+            return;
+        }
+
+        // Create dashboard UI
+        const dashboard = document.createElement('div');
+        dashboard.className = 'user-frequency-dashboard';
+
+        // Add dashboard header
+        const header = document.createElement('div');
+        header.className = 'dashboard-header';
+
+        const title = document.createElement('h2');
+        title.textContent = 'User Analytics';
+        header.appendChild(title);
+
+        // Add close button
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-dashboard';
+        closeButton.innerHTML = '<i class="fas fa-times"></i>';
+        closeButton.onclick = () => dashboard.remove();
+        header.appendChild(closeButton);
+
+        dashboard.appendChild(header);
+
+        // Create statistics container
+        const container = document.createElement('div');
+        container.className = 'dashboard-container';
+
+        // Calculate gender statistics
+        const genderStats = registrationData.reduce((acc, user) => {
+            acc[user.gender] = (acc[user.gender] || 0) + 1;
+            return acc;
+        }, {});
+
+        // Format gender data
+        const genderData = Object.entries(genderStats).map(([gender, count]) => ({
+            label: gender,
+            value: ((count / registrationData.length) * 100).toFixed(1) + '%',
+            count: count.toString()
+        }));
+
+        // Calculate age statistics
+        const ages = registrationData.map(user => {
+            const birthDate = new Date(user.dob);
+            const age = new Date().getFullYear() - birthDate.getFullYear();
+            return age;
+        });
+
+        // Define age groups
+        const ageGroups = {
+            '18-24': ages.filter(age => age >= 18 && age <= 24).length,
+            '25-34': ages.filter(age => age >= 25 && age <= 34).length,
+            '35-44': ages.filter(age => age >= 35 && age <= 44).length,
+            '45+': ages.filter(age => age >= 45).length
+        };
+
+        // Add statistics sections
+        container.appendChild(createDashboardSection('Gender Distribution', genderData));
+        container.appendChild(createDashboardSection('Age Distribution', Object.entries(ageGroups).map(([range, count]) => ({
+            label: range,
+            value: ((count / registrationData.length) * 100).toFixed(1) + '%',
+            count: count.toString()
+        }))));
+
+        // Finalize dashboard
+        dashboard.appendChild(container);
+        document.body.appendChild(dashboard);
+    }
+
+    // Dashboard Section Creator
+    function createDashboardSection(title, stats) {
+        // Create section container
+        const section = document.createElement('div');
+        section.className = 'dashboard-section';
+        
+        // Add section title
+        const sectionTitle = document.createElement('h3');
+        sectionTitle.textContent = title;
+        section.appendChild(sectionTitle);
+
+        // Create stats display
+        const statsContainer = document.createElement('div');
+        statsContainer.className = title.includes('Gender') ? 'gender-stats' : 'age-stats';
+
+        // Add individual stat cards
+        stats.forEach(stat => {
+            const statCard = document.createElement('div');
+            statCard.className = 'stat-card';
+            statCard.innerHTML = `
+                <h4>${stat.label}</h4>
+                <div class="stat-number">${stat.value}</div>
+                <div class="stat-percentage">${stat.count} users</div>
+            `;
+            statsContainer.appendChild(statCard);
+        });
+
+        section.appendChild(statsContainer);
+        return section;
+    }
+
+    // Page Load Handler
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check authentication status
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const currentUserTRN = localStorage.getItem('currentUserTRN');
+
+        if (isLoggedIn && currentUserTRN) {
+            // Initialize authenticated view
+            initializeAccount();
+        } else {
+            // Set up guest view
+            document.getElementById('userUsername').textContent = 'Guest User';
+            document.getElementById('userEmail').textContent = 'Please log in to view';
+            document.getElementById('memberSince').textContent = 'N/A';
+            
+            // Update guest welcome message
+            const welcomeMessage = document.querySelector('.account-header p');
+            if (welcomeMessage) {
+                welcomeMessage.textContent = 'Welcome to Bowlvana!';
+            }
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+# Bowlvana - Açaí Bowl E-commerce Website
+
+## Project Overview
+Bowlvana is an e-commerce website specializing in açaí bowls, offering a seamless shopping experience with user authentication, product browsing, cart management, and order processing.
+
+# Bowlvana E-commerce Website
+## CIT2011 Web Programming - Group Assignment #1
+
+### Group Members
+- Romiela Cooke (2209989)
+- Delano Wright (2210185)
+- Tareke Williams (23010976)
+- Joshua Williams (23010988)
+
+**Class:** Wednesday/Friday 3:30 PM - 5:30 PM/ 8:30 AM - 11:30 AM
+
+## How to Run the Project
+
+1. **Open the Website**
+   - Simply open `index.html` in a modern web browser
+2. **Test Account**
+   ```
+   TRN: 001-004-005
+   Password: TheNorthRemembers#1
+   ```
+
+## Tools & Frameworks Used
+
+### Frontend
+- HTML5 & CSS3 (60% custom CSS, 40% framework)
+- Vanilla JavaScript
+- Google Fonts
+- Font Awesome Icons
+
+### External Libraries & Resources
+  - Font Awesome 6.0.0 (Icons)
+  - Google Fonts
+  - Bodoni Moda
+  - Playfair Display
+  - Montserrat
+  - Ramaraja
+  - Garamond
+
+### Data Storage
+- LocalStorage for persistent data
+- JSON for data structure
+
+## File Structure & Purpose
+
+### HTML Files
+bowlvana/
+├── HTML Files
+│   ├── index.html          # Landing page 
+│   ├── menu.html           # Product catalog
+│   ├── cart.html           # Shopping cart
+│   ├── login.html          # Authentication
+│   ├── registration.html   # User signup
+│   ├── account.html        # User dashboard
+│   ├── aboutus.html        # Company info
+│   └── order_history.html  # Order tracking
+│
+├── CSS Files
+│   ├── styles.css          # Global styles
+│   ├── menu.css           # Menu-specific styles
+│   ├── cart.css           # Cart page styles
+│   ├── login.css          # Authentication styles
+│   └── registration.css    # Registration form styles
+│
+├── JavaScript Files
+│   ├── cart.js            # Cart functionality
+│   ├── analytics.js       # User analytics
+│   └── main.js            # Core functionality
+│
+└── assets/
+    └── images/            # Product & UI images
+
+### JavaScript Features
+- User authentication (registration/login)
+- Shopping cart with localStorage
+- Invoice generation
+- User analytics
+
+### LocalStorage Implementation
+- User data storage
+- Cart management
+- Order history
+- Session handling
+
+## Testing the Features
+1. **Registration & Login**
+   - Use registration form to create account
+   - Login with provided test account
+
+2. **Shopping**
+   - Browse products in menu
+   - Add items to cart
+   - Proceed to checkout
+
+3. **Account Features**
+   - View order history
+   - Check analytics
+   - Generate invoices
+
+### Analytics
+Access user demographics and invoice data through:
+- ShowUserFrequency() - Demographics dashboard
+- ShowInvoices() - Full invoice search
+- GetUserInvoices() - User-specific invoices
+
+## Registration & Login
+- Navigate to 'Registration' in top menu
+- Enter required details including TRN
+- Use login page for returning users
+
+## Shopping Cart
+- Add items using 'Add to Cart' button
+- View cart by clicking cart icon
+- Adjust quantities or remove items
+- Enter Shipping Information and payment type
+- Proceed to checkout
+
+## Order Management
+- Track orders in 'Order History'
+- View invoices
+- Download or print invoices
+
+## User Dashboard
+- Access profile settings

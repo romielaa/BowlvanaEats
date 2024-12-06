@@ -1,0 +1,203 @@
+<!--
+    Bowlvana E-commerce Website
+    CIT2011 Web Programming - Group Assignment #1
+    
+    Group Members:
+    - Romiela Cooke (2209989) - Founder & CEO
+    - Delano Wright (2210185) - Head Chef & Designer
+    - Tareke Williams (23010976) - Sales Representative
+    - Joshua Williams (23010988) - Lead Developer
+    
+    File: menu.html
+    Purpose: Product menu page displaying all available açaí bowls with descriptions,
+            prices, calorie information, and cart functionality for online ordering
+    
+    Created: November 2024
+    Last Modified: November 2024
+    
+    Class: Wednesday 3:30 PM - 5:30 PM
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Bowlvana</title>
+    
+    <!-- External Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Link to CART HTML file -->
+    <link rel="stylesheet" href="menu.css">
+    <script src="cart.js"></script>
+    
+    <!-- Favicon Settings -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo1.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo1.png">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+            <h2>Bowlvana</h2>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="registration.html">Registration</a>
+            <a href="account.html" class="account-link">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="cart.html" class="cart-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <h2 class="menu-title">Our Quick Bowls</h2>
+        <div class="product-grid">
+            <!-- Merry Berry Bowl -->
+            <div class="product-card">
+                <img src="assets/images/merryberry.png" alt="Merry Berry Bowl">
+                <h3 class="product-name">Merry Berry</h3>
+                <p class="product-description">Açaí with granola, sliced banana, and blueberry, coconut flakes and peanut butter.</p>
+                <div class="product-info">
+                    <span class="calories">250 CAL</span>
+                    <span class="price">J$900</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Merry Berry', 900.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+            <!-- Blue Majik Bowl -->
+            <div class="product-card">
+                <img src="assets/images/bluemajik.png" alt="Blue Majik Bowl">
+                <h3 class="product-name">Blue Majik</h3>
+                <p class="product-description">Pure açaí blend topped with blueberry, edible flowers, and coconut flakes.</p>
+                <div class="product-info">
+                    <span class="calories">350 CAL</span>
+                    <span class="price">J$750</span>
+                    <span class="special-badge">Best Seller</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Blue Majik', 750.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Mystic Moon Bowl -->
+            <div class="product-card">
+                <img src="assets/images/mysticmoon.png" alt="Mystic Moon Bowl">
+                <h3 class="product-name">Mystic Moon</h3>
+                <p class="product-description">Pure coconut blend topped with coconut flakes, shaved chocolate and chocolate bar.</p>
+                <div class="product-info">
+                    <span class="calories">250 CAL</span>
+                    <span class="price">J$850</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Mystic Moon', 850.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Moonwave Bowl -->
+            <div class="product-card">
+                <img src="assets/images/moonwave.png" alt="Moonwave Bowl">
+                <h3 class="product-name">Moonwave</h3>
+                <p class="product-description">Açaí with granola, kiwi, coconut flakes, passion and blueberries.</p>
+                <div class="product-info">
+                    <span class="calories">350 CAL</span>
+                    <span class="price">J$900</span>
+                    <span class="special-badge">Best Seller</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Moonwave', 900.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Kiwi Kiss Bowl -->
+            <div class="product-card">
+                <img src="assets/images/kiwikiss.png" alt="Kiwi Kiss Bowl">
+                <h3 class="product-name">Kiwi Kiss</h3>
+                <p class="product-description">Açaí with nuts, kiwi and blueberries.</p>
+                <div class="product-info">
+                    <span class="calories">250 CAL</span>
+                    <span class="price">J$850</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Kiwi Kiss', 850.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Choco Charm Bowl -->
+            <div class="product-card">
+                <img src="assets/images/chococharm.png" alt="Choco Charm Bowl">
+                <h3 class="product-name">Choco Charm</h3>
+                <p class="product-description">Cocoa blend with chocolate, granola, sliced banana, nuts and blueberries.</p>
+                <div class="product-info">
+                    <span class="calories">350 CAL</span>
+                    <span class="price">J$750</span>
+                    <span class="special-badge">Best Seller</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Choco Charm', 750.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- BOMBOM Bowl -->
+            <div class="product-card">
+                <img src="assets/images/bombom.png" alt="BOMBOM Bowl">
+                <h3 class="product-name">BOMBOM</h3>
+                <p class="product-description">Açaí blend with edible flower, granola, chocolate and flaxseed.</p>
+                <div class="product-info">
+                    <span class="calories">350 CAL</span>
+                    <span class="price">J$750</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('BOMBOM', 750.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Dawn Delight Bowl -->
+            <div class="product-card">
+                <img src="assets/images/dawndelight.png" alt="Dawn Delight Bowl">
+                <h3 class="product-name">Dawn Delight</h3>
+                <p class="product-description">Açaí blend with granola, coconut flakes, dragonfruit.</p>
+                <div class="product-info">
+                    <span class="calories">250 CAL</span>
+                    <span class="price">J$950</span>
+                    <span class="special-badge">Best Seller</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Dawn Delight', 950.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- Nutty Nova Bowl -->
+            <div class="product-card">
+                <img src="assets/images/nuttynova.png" alt="Nutty Nova Bowl">
+                <h3 class="product-name">Nutty Nova</h3>
+                <p class="product-description">Pistachio açaí with peanut butter,nuts and yogurt.</p>
+                <div class="product-info">
+                    <span class="calories">350 CAL</span>
+                    <span class="price">J$850</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Nutty Nova', 850.00)">
+                    <i class="fas fa-plus"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="copyright">© 2024 Bowlvana. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 

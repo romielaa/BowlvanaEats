@@ -1,0 +1,182 @@
+<!--
+    Bowlvana E-commerce Website
+    CIT2011 Web Programming - Group Assignment #1
+    
+    Group Members:
+    - Romiela Cooke (2209989) - Founder & CEO
+    - Delano Wright (2210185) - Head Chef & Designer
+    - Tareke Williams (23010976) - Sales Representative
+    - Joshua Williams (23010988) - Lead Developer
+    
+    File: cart.html
+    Purpose: Shopping cart page allowing users to review their selected items,
+            input shipping information, choose payment methods, and complete checkout
+    
+    Created: November 2024
+    Last Modified: November 2024
+    
+    Class: Wednesday 3:30 PM - 5:30 PM
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Essential Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Bowlvana</title>
+    
+    <!-- External Resource Links -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="menu.css">
+    
+    <!-- Favicon Configuration -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo1.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo1.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo1.png">
+</head>
+
+<!-- Cart Functionality Script -->
+<script src="cart.js"></script>
+
+<body>
+    <!-- Site Navigation -->
+    <header class="header">
+        <!-- Brand Identity -->
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo1.png" alt="Bowlvana Logo">
+            <h2>Bowlvana</h2>
+        </a>
+        <!-- Navigation Menu -->
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="registration.html">Registration</a>
+            <a href="account.html" class="account-link">
+                <i class="fas fa-user"></i>
+            </a>
+            <!-- Cart Status -->
+            <a href="cart.html" class="cart-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </nav>
+    </header>
+    
+    <!-- Main Content Container -->
+    <div class="container gradient-bg">
+        <!-- Return to Shopping Link -->
+        <div class="menu-link">
+            <a href="menu.html" class="continue-shopping hover-effect">
+                &#8592; Continue Shopping
+            </a>
+        </div>
+    
+        <!-- Cart Contents -->
+        <h2 class="section-title">Your Cart</h2>
+        <div id="cart-items-container"></div>
+        <div id="empty-cart-message" class="empty-cart-message">
+            Your cart is empty! Browse our menu and Açaí Away!
+        </div>
+    
+    <!-- Order Summary Section -->
+    <div class="order-summary">
+        <h2 class="section-title">Order Summary</h2>
+        
+        <!-- Customer Information Form -->
+        <div class="shipping-form">
+            <h3>Shipping Information</h3>
+            <!-- Personal Details -->
+            <div class="form-group">
+                <input type="text" id="customer-name" class="input-box" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="customer-email" class="input-box" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="customer-phone" class="input-box" placeholder="Phone Number" required>
+            </div>
+            <!-- Delivery Details -->
+            <div class="form-group">
+                <textarea id="customer-address" class="input-box" placeholder="Delivery Address" rows="3" required></textarea>
+            </div>
+            <!-- Tax Information -->
+            <div class="form-group">
+                <input type="text" 
+                    id="customer-trn" 
+                    class="input-box" 
+                    placeholder="Tax Registration Number (TRN)" 
+                    required 
+                    pattern="\d{3}-\d{3}-\d{3}" 
+                    title="The TRN format XXX-XXX-XXX">
+                <small class="input-hint">Format: XXX-XXX-XXX</small>
+            </div>
+            <!-- Service Area Selection -->
+            <div class="form-group">
+                <select id="delivery-area" class="input-box" required>
+                    <option value="">Select Delivery Area</option>
+                    <option value="st-james">St.James</option>
+                    <option value="trelawny">Trelawny</option>
+                    <option value="st-ann">St. Ann</option>
+                    <option value="westmoreland">Westmoreland</option>
+                    <option value="hanover">Hanover</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Payment Options -->
+        <fieldset id="payment-method" class="payment-section">
+            <legend>Select Payment Method</legend>
+            <label><input type="radio" name="payment" value="electronic"> Electronic Payment</label>
+            <label><input type="radio" name="payment" value="credit-card"> Credit Card</label>
+            <label><input type="radio" name="payment" value="debit-card"> Debit Card</label>
+            <label><input type="radio" name="payment" value="cash"> Cash</label>
+        </fieldset>
+
+        <!-- Cash Payment Amount Input -->
+        <div id="amount-paid-container" class="form-group" style="display: none;">
+            <input 
+                type="number" 
+                id="amount-paid" 
+                class="input-box" 
+                placeholder="Amount Being Paid" 
+            >
+        </div> 
+
+        <!-- Cost Calculation -->
+        <div class="price-breakdown">
+            <div class="price-row">
+                <span>Subtotal</span>
+                <span>J$0.00</span>
+            </div>
+            <div class="price-row discount-row" style="display: none;">
+                <span>Discount</span>
+                <span>-J$0.00</span>
+            </div>
+            <div class="price-row">
+                <span>Tax (15%)</span>
+                <span>J$0.00</span>
+            </div>
+            <div class="price-row total-row">
+                <span>Total</span>
+                <span>J$0.00</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="checkout-buttons">
+            <button class="btn-cancel" onclick="cancelCheckout()">Cancel</button>
+            <button class="btn-checkout" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+        <!-- Order Confirmation Message -->
+        <div id="thank-you-message" class="thank-you-message" style="display: none;"></div>
+    </div>
+    
+    <!-- Cart Management Script -->
+    <script src="cart.js"></script>
+</body>
+</html>
